@@ -5,6 +5,7 @@ description: "Большой гайд: числа, строки, Any/Nothing, va
 tags: [kotlin, jvm, collections, generics]
 level: "Base"
 start: true
+order: 10
 ---
 
 <div class="callout callout--good">

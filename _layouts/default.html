@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="ru">
   {% include head.html %}
-  <body>
+  <body class="layout-{{ page.layout }}{% if page.collection %} collection-{{ page.collection }}{% endif %}">
+
     <a class="skip-link" href="#content">Перейти к контенту</a>
 
     {% include header.html %}
@@ -49,10 +50,16 @@
 
           <div class="topbar__row">
             <div class="breadcrumbs">
-              <span class="pill">GitHub Pages</span>
+              <span class="pill">{{ site.title }}</span>
               <span class="sep">/</span>
-              <span class="pill pill--muted">Guide</span>
+
+              {% if page.collection == 'guides' %}
+                <a class="pill pill--muted" href="{{ '/#feed' | relative_url }}">Guide</a>
+              {% else %}
+                <span class="pill pill--muted">{{ page.title | default: 'Page' }}</span>
+              {% endif %}
             </div>
+
 
             <div class="topbar__right">
               <a class="iconbtn" href="#content" title="К началу">🏠</a>

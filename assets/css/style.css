@@ -292,12 +292,15 @@ a:hover{ text-decoration: underline; }
 .topbar{
   position: sticky;
   top: var(--header-h);
-  z-index: 80;
-  backdrop-filter: blur(14px);
-  background: rgba(0,0,0,.18);
+  z-index: 90;
+
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--faint);
 }
-:root[data-theme="light"] .topbar{ background: rgba(255,255,255,.70); }
+:root[data-theme="light"] .topbar{
+  background: color-mix(in srgb, #ffffff 78%, transparent);
+}
 
 .progress{
   height: 3px;
@@ -442,7 +445,16 @@ a:hover{ text-decoration: underline; }
   opacity: .35;
   font-weight: 700;
 }
+
+html{
+  scroll-padding-top: calc(var(--header-h) + var(--topbar-h) + 16px);
+}
+
 .paper :is(h2,h3):hover .anchor{ opacity: .85; text-decoration:none; }
+
+.paper :is(h2,h3,h4){
+  scroll-margin-top: calc(var(--header-h) + var(--topbar-h) + 16px);
+}
 
 /* Inline code */
 .paper code{
@@ -865,4 +877,17 @@ mark.__find{
 
 .content__footer{
   margin-top: 16px;
+}
+
+.collection-guides .content{
+  padding: 14px 18px 16px;
+}
+
+.collection-guides .hero{
+  padding: 18px 18px 16px;
+}
+
+.collection-guides .paper{
+  margin-top: 12px;
+  padding: 16px;
 }

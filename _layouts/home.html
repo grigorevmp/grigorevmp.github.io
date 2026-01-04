@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru">
   {% include head.html %}
-  <body>
+  <body class="layout-{{ page.layout }}{% if page.collection %} collection-{{ page.collection }}{% endif %}">
     <a class="skip-link" href="#content">Перейти к контенту</a>
 
     {% include header.html %}
@@ -14,11 +14,12 @@
           </div>
 
           <div class="topbar__row">
-            <div class="breadcrumbs">
-              <span class="pill">GitHub Pages</span>
-              <span class="sep">/</span>
-              <span class="pill pill--muted">Home</span>
+             <div class="breadcrumbs">
+                <span class="pill">{{ site.title }}</span>
+                <span class="sep">/</span>
+                <span class="pill pill--muted">Home</span>
             </div>
+
 
             <div class="topbar__right">
               <button class="iconbtn" id="toggleTheme" type="button" title="Тема">🌗</button>
@@ -40,7 +41,7 @@
 
                 <div class="hero__cta">
                   <a class="btn btn--primary" href="#feed">📚 Открыть ленту</a>
-                    {% assign start_guide = site.guides | where: "start", true | first %}
+                    {% assign start_guide = site.collections['guides'].docs | where: "start", true | first %}
                     {% if start_guide %}
                     <a class="btn btn--ghost" href="{{ start_guide.url | relative_url }}">⭐ Начать с базового</a>
                     {% else %}
@@ -115,7 +116,7 @@
                    href="{{ p.url | relative_url }}"
                    data-title="{{ p.title | escape }}"
                    data-tags="{{ p.tags | join: ',' | downcase | escape }}"
-                   data-date="{{ p.date | date: '%s' | default: 0 }}">
+                   data-order="{% if p.order %}{{ p.order }}{% else %}999999{% endif %}"></a>
                   <div class="card__top">
                     <div class="card__title">{{ p.title }}</div>
                     {% if p.level %}
@@ -219,9 +220,9 @@
           const mode = sortSelect.value;
           const sorted = [...cards].sort((a,b)=>{
             if(mode === 'az') return (a.dataset.title||'').localeCompare(b.dataset.title||'', 'ru');
-            const da = Number(a.dataset.date||0);
-            const db = Number(b.dataset.date||0);
-            return mode === 'old' ? da - db : db - da;
+            const oa = Number(a.dataset.order || 999999);
+            const ob = Number(b.dataset.order || 999999);
+            return mode === 'old' ? oa - ob : ob - oa;
           });
           sorted.forEach(x => grid.appendChild(x));
         }
