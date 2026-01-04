@@ -1,6 +1,4 @@
-:root{
-  --header-h: 64px;   
-  --topbar-h: 52px;   
+:root{ 
   --bg: #0b0f19;
   --panel: rgba(255,255,255,.06);
   --paper: rgba(255,255,255,.04);
@@ -40,11 +38,23 @@ body{
   margin: 0;
   font-family: var(--font);
   color: var(--text);
+  background: var(--bg);
+}
+
+body::before{
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
   background:
     radial-gradient(1200px 700px at 10% 10%, rgba(138,180,255,.25), transparent 60%),
     radial-gradient(900px 600px at 70% 20%, rgba(180,138,255,.20), transparent 60%),
-    radial-gradient(900px 700px at 40% 90%, rgba(110,231,183,.10), transparent 60%),
-    var(--bg);
+    radial-gradient(900px 700px at 40% 90%, rgba(110,231,183,.10), transparent 60%);
+
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 a{ color: var(--brand); text-decoration: none; }
