@@ -1,6 +1,7 @@
 ---
 title: "Типы данных в Kotlin"
 subtitle: "Супер-оформление под блог/гайд: код, таблицы, callout, картинки, оглавление"
+layout: default
 ---
 
 <div class="callout callout--good">
