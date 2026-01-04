@@ -8,18 +8,16 @@ kramdown:
   syntax_highlighter: rouge
 
 collections:
-  posts:
+  guides:
     output: true
-    permalink: /posts/:name/
-    
+    permalink: /guides/:name/
+
 defaults:
   - scope:
       path: ""
-      type: "guides"
+      type: guides
     values:
       layout: default
-      nav: "guides"
-
 
 exclude:
   - README.md

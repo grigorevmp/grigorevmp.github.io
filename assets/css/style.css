@@ -862,3 +862,7 @@ mark.__find{
   .searchbox{ min-width: 0; width: 100%; }
   .feedbar__right{ width: 100%; }
 }
+
+.content__footer{
+  margin-top: 16px;
+}

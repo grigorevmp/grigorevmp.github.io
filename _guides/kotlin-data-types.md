@@ -4,6 +4,7 @@ subtitle: "От примитивов JVM до тонкостей generics, nulla
 description: "Большой гайд: числа, строки, Any/Nothing, value classes, массивы, коллекции, JVM boxing, HashMap/LinkedHashMap."
 tags: [kotlin, jvm, collections, generics]
 level: "Base"
+start: true
 ---
 
 <div class="callout callout--good">
@@ -23,3 +24,4 @@ level: "Base"
 fun main() {
     println("Hello Kotlin")
 }
+```
