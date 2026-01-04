@@ -78,7 +78,7 @@
             <div class="feedbar">
               <div class="feedbar__left">
                 <h2 class="section-title">Записи</h2>
-                <div class="muted">Карточки ведут на страницы гайдов</div>
+                <div class="muted">start: {{ start_guide.url }}</div>
               </div>
 
               <div class="feedbar__right">
@@ -113,10 +113,11 @@
               {% assign items = site.collections['guides'].docs %}
               {% for p in items %}
                 <a class="card"
-                   href="{{ p.url | relative_url }}"
-                   data-title="{{ p.title | escape }}"
-                   data-tags="{{ p.tags | join: ',' | downcase | escape }}"
-                   data-order="{% if p.order %}{{ p.order }}{% else %}999999{% endif %}"></a>
+                  href="{{ p.url | relative_url }}"
+                  data-title="{{ p.title | escape }}"
+                  data-tags="{{ p.tags | join: ',' | downcase | escape }}"
+                  data-order="{% if p.order %}{{ p.order }}{% else %}999999{% endif %}">
+
                   <div class="card__top">
                     <div class="card__title">{{ p.title }}</div>
                     {% if p.level %}
@@ -140,12 +141,13 @@
                         <span class="chip chip--tag">guide</span>
                       {% endif %}
                     </div>
-
                     <div class="card__hint">Открыть →</div>
                   </div>
+
                 </a>
               {% endfor %}
             </div>
+
 
             <div class="empty" id="emptyState" style="display:none;">
               Ничего не найдено. Попробуй другой запрос или сбрось фильтры.

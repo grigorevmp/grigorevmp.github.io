@@ -289,17 +289,16 @@ a:hover{ text-decoration: underline; }
 }
 :root[data-theme="light"] .main{ background: rgba(255,255,255,.5); }
 
-.topbar{
-  position: sticky;
-  top: var(--header-h);
-  z-index: 90;
-
-  background: color-mix(in srgb, var(--bg) 82%, transparent);
-  backdrop-filter: blur(18px);
-  border-bottom: 1px solid var(--faint);
-}
-:root[data-theme="light"] .topbar{
-  background: color-mix(in srgb, #ffffff 78%, transparent);
+.topbar{ 
+  position: sticky; 
+  top: calc(var(--header-h) + 6px); 
+  z-index: 40; 
+  backdrop-filter: blur(14px); 
+  background: rgba(0,0,0,.18); 
+  border-bottom: 1px solid var(--faint); 
+} 
+:root[data-theme="light"] .topbar{ 
+  background: rgba(255,255,255,.70); 
 }
 
 .progress{
