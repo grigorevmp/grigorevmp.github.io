@@ -1,4 +1,5 @@
 :root{
+  --header-h: 70px;
   --bg: #0b0f19;
   --panel: rgba(255,255,255,.06);
   --paper: rgba(255,255,255,.04);
@@ -62,7 +63,7 @@ a:hover{ text-decoration: underline; }
 .header{
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: 60;
   backdrop-filter: blur(14px);
   background: rgba(0,0,0,.18);
   border-bottom: 1px solid var(--faint);
@@ -70,6 +71,7 @@ a:hover{ text-decoration: underline; }
 :root[data-theme="light"] .header{ background: rgba(255,255,255,.65); }
 
 .header__inner{
+  min-height: var(--header-h);
   max-width: 1200px;
   margin: 0 auto;
   padding: 14px 18px;
@@ -130,7 +132,7 @@ a:hover{ text-decoration: underline; }
 }
 .sidebar__inner{
   position: sticky;
-  top: 76px;
+  top: calc(var(--header-h) + 10px);
   padding: 16px;
   border-radius: var(--radius);
   background: var(--panel);
@@ -278,7 +280,7 @@ a:hover{ text-decoration: underline; }
 
 .topbar{
   position: sticky;
-  top: 62px;
+  top: calc(var(--header-h) + 6px);
   z-index: 40;
   backdrop-filter: blur(14px);
   background: rgba(0,0,0,.18);
@@ -561,7 +563,7 @@ mark.__find{
 @media (max-width: 980px){
   .page{ grid-template-columns: 1fr; }
   .sidebar__inner{ position: relative; top: 0; }
-  .topbar{ top: 62px; }
+  .topbar{ top: calc(var(--header-h) + 4px); }
 }
 @media (max-width: 520px){
   .hero__title{ font-size: 26px; }
