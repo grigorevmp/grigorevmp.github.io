@@ -40,7 +40,12 @@
 
                 <div class="hero__cta">
                   <a class="btn btn--primary" href="#feed">📚 Открыть ленту</a>
-                  <a class="btn btn--ghost" href="/posts/kotlin-data-types/">⭐ Начать с базового</a>
+                    {% assign start_guide = site.guides | where: "start", true | first %}
+                    {% if start_guide %}
+                    <a class="btn btn--ghost" href="{{ start_guide.url | relative_url }}">⭐ Начать с базового</a>
+                    {% else %}
+                    <a class="btn btn--ghost" href="{{ '/#feed' | relative_url }}">⭐ Начать с базового</a>
+                    {% endif %}
                 </div>
 
                 <div class="hero__badges">
@@ -54,7 +59,7 @@
               <div class="stats">
                 <div class="stat">
                   <div class="stat__label">Записей</div>
-                  <div class="stat__value">{{ site.posts | size }}</div>
+                  <div class="stat__value">{{ site.guides | size }}</div>
                 </div>
                 <div class="stat">
                   <div class="stat__label">Коллекция</div>
@@ -76,9 +81,20 @@
               </div>
 
               <div class="feedbar__right">
-                <div class="search search--inline">
-                  <input id="homeSearchInput" type="search" placeholder="Фильтр по заголовкам/тегам…" aria-label="Фильтр по записям">
+                <div class="searchbox" role="search">
+                    <span class="searchbox__icon" aria-hidden="true">⌕</span>
+                    <input
+                        id="homeSearchInput"
+                        class="searchbox__input"
+                        type="search"
+                        placeholder="Поиск по заголовкам и тегам…"
+                        aria-label="Поиск по записям"
+                        autocomplete="off"
+                        spellcheck="false"
+                    >
+                    <button class="searchbox__clear" id="homeSearchClear" type="button" aria-label="Очистить">✕</button>
                 </div>
+
 
                 <select id="sortSelect" class="select" aria-label="Сортировка">
                   <option value="new">Сначала новые</option>
@@ -92,8 +108,8 @@
               <button class="tag is-active" data-tag="__all">Все</button>
             </div>
 
-            <div class="grid" id="postsGrid">
-              {% assign items = site.posts %}
+            <div class="grid" id="guidesGrid">
+              {% assign items = site.guides %}
               {% for p in items %}
                 <a class="card"
                    href="{{ p.url | relative_url }}"
@@ -139,7 +155,7 @@
             <div class="callout callout--note">
               <div class="callout__title">Как добавлять новые записи</div>
               <div class="callout__body">
-                Создай файл в <code>posts/</code> с front-matter: <code>title</code>, <code>tags</code>, <code>description</code>.
+                Создай файл в <code>guides/</code> с front-matter: <code>title</code>, <code>tags</code>, <code>description</code>.
                 Он автоматически появится здесь карточкой.
               </div>
             </div>
@@ -154,7 +170,7 @@
     <script>
       // Home-only: tags + filtering + sorting
       (function(){
-        const grid = document.getElementById('postsGrid');
+        const grid = document.getElementById('guidesGrid');
         if(!grid) return;
 
         const cards = Array.from(grid.querySelectorAll('.card'));
@@ -220,6 +236,22 @@
         });
 
         qInput?.addEventListener('input', apply);
+        const clearBtn = document.getElementById('homeSearchClear');
+        function syncClear() {
+        if (!clearBtn) return;
+        clearBtn.style.opacity = (qInput && qInput.value.trim()) ? '1' : '0';
+        clearBtn.style.pointerEvents = (qInput && qInput.value.trim()) ? 'auto' : 'none';
+        }
+        qInput?.addEventListener('input', () => { apply(); syncClear(); });
+        clearBtn?.addEventListener('click', () => {
+        if (!qInput) return;
+        qInput.value = '';
+        qInput.focus();
+        apply();
+        syncClear();
+        });
+        syncClear();
+
         sortSelect?.addEventListener('change', ()=>{ sort(); apply(); });
 
         sort();

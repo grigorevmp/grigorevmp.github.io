@@ -8,7 +8,14 @@
     <nav class="nav">
       <a class="nav__link" href="{{ '/' | relative_url }}">Главная</a>
       <a class="nav__link" href="{{ '/#feed' | relative_url }}">Записи</a>
-      <a class="nav__link" href="{{ '/posts/kotlin-data-types/' | relative_url }}">Старт</a>
+
+      {% assign start_guide = site.guides | where: "start", true | first %}
+      {% if start_guide %}
+        <a class="nav__link" href="{{ start_guide.url | relative_url }}">Старт</a>
+      {% else %}
+        <a class="nav__link" href="{{ '/#feed' | relative_url }}">Старт</a>
+      {% endif %}
+
       <a class="nav__link" href="https://kotlinlang.org" target="_blank" rel="noreferrer">Kotlin ↗</a>
     </nav>
   </div>

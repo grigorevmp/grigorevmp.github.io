@@ -11,14 +11,15 @@ collections:
   posts:
     output: true
     permalink: /posts/:name/
-
+    
 defaults:
   - scope:
       path: ""
-      type: "posts"
+      type: "guides"
     values:
       layout: default
-      nav: "posts"
+      nav: "guides"
+
 
 exclude:
   - README.md
