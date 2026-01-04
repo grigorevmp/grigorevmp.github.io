@@ -1,0 +1,13 @@
+title: "Kotlin Data Types Guide"
+description: "GitHub Pages"
+theme: null
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+plugins: []
+
+exclude:
+  - README.md

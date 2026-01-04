@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ru">
+  {% include head.html %}
+  <body>
+    <a class="skip-link" href="#content">Перейти к контенту</a>
+
+    {% include header.html %}
+
+    <div class="page">
+      <aside class="sidebar">
+        <div class="sidebar__inner">
+          <div class="brand">
+            <div class="brand__title">{{ site.title }}</div>
+            <div class="brand__desc">{{ site.description }}</div>
+          </div>
+
+          <div class="search">
+            <input id="searchInput" type="search" placeholder="Поиск по странице…" aria-label="Поиск по странице">
+            <div class="search__hint">Подсказка: Ctrl/⌘ + K</div>
+          </div>
+
+          {% include toc.html %}
+
+          <div class="meta">
+            <div class="meta__row">
+              <span class="dot"></span>
+              <span id="readingTime">— мин чтения</span>
+            </div>
+            <div class="meta__row">
+              <span class="dot dot--2"></span>
+              <span id="wordCount">— слов</span>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn" id="toggleTheme" type="button" aria-label="Переключить тему">
+              🌗 Тема
+            </button>
+            <a class="btn btn--ghost" href="#content">⬇︎ К контенту</a>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <div class="topbar">
+          <div class="progress" aria-hidden="true">
+            <div class="progress__bar" id="progressBar"></div>
+          </div>
+
+          <div class="topbar__row">
+            <div class="breadcrumbs">
+              <span class="pill">GitHub Pages</span>
+              <span class="sep">/</span>
+              <span class="pill pill--muted">Guide</span>
+            </div>
+
+            <div class="topbar__right">
+              <a class="iconbtn" href="#content" title="К началу">🏠</a>
+              <button class="iconbtn" id="backToTop" type="button" title="Наверх">⬆️</button>
+            </div>
+          </div>
+        </div>
+
+        <article class="content" id="content">
+          <header class="hero">
+            <h1 class="hero__title">{{ page.title | default: site.title }}</h1>
+            {% if page.subtitle %}
+              <p class="hero__subtitle">{{ page.subtitle }}</p>
+            {% else %}
+              <p class="hero__subtitle">{{ site.description }}</p>
+            {% endif %}
+
+            <div class="hero__badges">
+              <span class="badge">Kotlin</span>
+              <span class="badge badge--2">JVM</span>
+              <span class="badge badge--3">Collections</span>
+              <span class="badge badge--4">Generics</span>
+            </div>
+          </header>
+
+          <div class="paper">
+            {{ content }}
+          </div>
+
+          <footer class="content__footer">
+            <div class="callout callout--note">
+              <div class="callout__title">Совет</div>
+              <div class="callout__body">
+                Разбивай большие статьи на разделы, а картинки вставляй через “Рисунок N”. Этот шаблон уже красиво оформит подписи.
+              </div>
+            </div>
+          </footer>
+        </article>
+
+        {% include footer.html %}
+      </main>
+    </div>
+
+    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+  </body>
+</html>
