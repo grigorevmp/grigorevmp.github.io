@@ -1,5 +1,5 @@
-title: "Kotlin Data Types Guide"
-description: "GitHub Pages"
+title: "Kotlin Guide"
+description: "Гайды, заметки и шпаргалки по Kotlin/Android"
 theme: null
 
 markdown: kramdown
@@ -7,7 +7,18 @@ kramdown:
   input: GFM
   syntax_highlighter: rouge
 
-plugins: []
+collections:
+  posts:
+    output: true
+    permalink: /posts/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: default
+      nav: "posts"
 
 exclude:
   - README.md

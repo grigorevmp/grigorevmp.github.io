@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="ru">
+  {% include head.html %}
+  <body>
+    <a class="skip-link" href="#content">Перейти к контенту</a>
+
+    {% include header.html %}
+
+    <div class="page page--home">
+      <main class="main main--home">
+        <div class="topbar topbar--home">
+          <div class="progress" aria-hidden="true">
+            <div class="progress__bar" id="progressBar"></div>
+          </div>
+
+          <div class="topbar__row">
+            <div class="breadcrumbs">
+              <span class="pill">GitHub Pages</span>
+              <span class="sep">/</span>
+              <span class="pill pill--muted">Home</span>
+            </div>
+
+            <div class="topbar__right">
+              <button class="iconbtn" id="toggleTheme" type="button" title="Тема">🌗</button>
+              <button class="iconbtn" id="backToTop" type="button" title="Наверх">⬆️</button>
+            </div>
+          </div>
+        </div>
+
+        <article class="content" id="content">
+          <header class="hero hero--home">
+            <div class="hero__grid">
+              <div>
+                <h1 class="hero__title">{{ site.title }}</h1>
+                {% if page.subtitle %}
+                  <p class="hero__subtitle">{{ page.subtitle }}</p>
+                {% else %}
+                  <p class="hero__subtitle">{{ site.description }}</p>
+                {% endif %}
+
+                <div class="hero__cta">
+                  <a class="btn btn--primary" href="#feed">📚 Открыть ленту</a>
+                  <a class="btn btn--ghost" href="/posts/kotlin-data-types/">⭐ Начать с базового</a>
+                </div>
+
+                <div class="hero__badges">
+                  <span class="badge">Kotlin</span>
+                  <span class="badge badge--2">Android</span>
+                  <span class="badge badge--3">JVM</span>
+                  <span class="badge badge--4">CS</span>
+                </div>
+              </div>
+
+              <div class="stats">
+                <div class="stat">
+                  <div class="stat__label">Записей</div>
+                  <div class="stat__value">{{ site.posts | size }}</div>
+                </div>
+                <div class="stat">
+                  <div class="stat__label">Коллекция</div>
+                  <div class="stat__value">Guides</div>
+                </div>
+                <div class="stat">
+                  <div class="stat__label">Поиск</div>
+                  <div class="stat__value">Ctrl/⌘ + K</div>
+                </div>
+              </div>
+            </div>
+          </header>
+
+          <section class="paper paper--home" id="feed">
+            <div class="feedbar">
+              <div class="feedbar__left">
+                <h2 class="section-title">Записи</h2>
+                <div class="muted">Карточки ведут на страницы гайдов</div>
+              </div>
+
+              <div class="feedbar__right">
+                <div class="search search--inline">
+                  <input id="homeSearchInput" type="search" placeholder="Фильтр по заголовкам/тегам…" aria-label="Фильтр по записям">
+                </div>
+
+                <select id="sortSelect" class="select" aria-label="Сортировка">
+                  <option value="new">Сначала новые</option>
+                  <option value="old">Сначала старые</option>
+                  <option value="az">A → Z</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="tags" id="tagBar">
+              <button class="tag is-active" data-tag="__all">Все</button>
+            </div>
+
+            <div class="grid" id="postsGrid">
+              {% assign items = site.posts %}
+              {% for p in items %}
+                <a class="card"
+                   href="{{ p.url | relative_url }}"
+                   data-title="{{ p.title | escape }}"
+                   data-tags="{{ p.tags | join: ',' | downcase | escape }}"
+                   data-date="{{ p.date | date: '%s' | default: 0 }}">
+                  <div class="card__top">
+                    <div class="card__title">{{ p.title }}</div>
+                    {% if p.level %}
+                      <span class="chip">{{ p.level }}</span>
+                    {% endif %}
+                  </div>
+
+                  {% if p.description %}
+                    <div class="card__desc">{{ p.description }}</div>
+                  {% else %}
+                    <div class="card__desc">{{ p.subtitle | default: site.description }}</div>
+                  {% endif %}
+
+                  <div class="card__meta">
+                    <div class="chips">
+                      {% if p.tags %}
+                        {% for t in p.tags %}
+                          <span class="chip chip--tag">{{ t }}</span>
+                        {% endfor %}
+                      {% else %}
+                        <span class="chip chip--tag">guide</span>
+                      {% endif %}
+                    </div>
+
+                    <div class="card__hint">Открыть →</div>
+                  </div>
+                </a>
+              {% endfor %}
+            </div>
+
+            <div class="empty" id="emptyState" style="display:none;">
+              Ничего не найдено. Попробуй другой запрос или сбрось фильтры.
+            </div>
+          </section>
+
+          <footer class="content__footer">
+            <div class="callout callout--note">
+              <div class="callout__title">Как добавлять новые записи</div>
+              <div class="callout__body">
+                Создай файл в <code>posts/</code> с front-matter: <code>title</code>, <code>tags</code>, <code>description</code>.
+                Он автоматически появится здесь карточкой.
+              </div>
+            </div>
+          </footer>
+        </article>
+
+        {% include footer.html %}
+      </main>
+    </div>
+
+    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+    <script>
+      // Home-only: tags + filtering + sorting
+      (function(){
+        const grid = document.getElementById('postsGrid');
+        if(!grid) return;
+
+        const cards = Array.from(grid.querySelectorAll('.card'));
+        const tagBar = document.getElementById('tagBar');
+        const qInput = document.getElementById('homeSearchInput');
+        const sortSelect = document.getElementById('sortSelect');
+        const empty = document.getElementById('emptyState');
+
+        const tagsSet = new Set();
+        cards.forEach(c => {
+          const tags = (c.dataset.tags || '').split(',').map(s => s.trim()).filter(Boolean);
+          tags.forEach(t => tagsSet.add(t));
+        });
+
+        const allTags = Array.from(tagsSet).sort((a,b)=>a.localeCompare(b,'ru'));
+        allTags.forEach(t => {
+          const btn = document.createElement('button');
+          btn.className = 'tag';
+          btn.textContent = t;
+          btn.dataset.tag = t;
+          tagBar.appendChild(btn);
+        });
+
+        let activeTag = '__all';
+
+        function apply(){
+          const q = (qInput?.value || '').trim().toLowerCase();
+          let visibleCount = 0;
+
+          cards.forEach(c => {
+            const title = (c.dataset.title || '').toLowerCase();
+            const tags = (c.dataset.tags || '').toLowerCase();
+
+            const okTag = activeTag === '__all' ? true : tags.split(',').includes(activeTag);
+            const okQ = !q ? true : (title.includes(q) || tags.includes(q));
+
+            const show = okTag && okQ;
+            c.style.display = show ? '' : 'none';
+            if(show) visibleCount++;
+          });
+
+          empty.style.display = visibleCount ? 'none' : '';
+        }
+
+        function sort(){
+          const mode = sortSelect.value;
+          const sorted = [...cards].sort((a,b)=>{
+            if(mode === 'az') return (a.dataset.title||'').localeCompare(b.dataset.title||'', 'ru');
+            const da = Number(a.dataset.date||0);
+            const db = Number(b.dataset.date||0);
+            return mode === 'old' ? da - db : db - da;
+          });
+          sorted.forEach(x => grid.appendChild(x));
+        }
+
+        tagBar.addEventListener('click', (e)=>{
+          const btn = e.target.closest('.tag');
+          if(!btn) return;
+          tagBar.querySelectorAll('.tag').forEach(x=>x.classList.remove('is-active'));
+          btn.classList.add('is-active');
+          activeTag = btn.dataset.tag;
+          apply();
+        });
+
+        qInput?.addEventListener('input', apply);
+        sortSelect?.addEventListener('change', ()=>{ sort(); apply(); });
+
+        sort();
+        apply();
+      })();
+    </script>
+  </body>
+</html>
