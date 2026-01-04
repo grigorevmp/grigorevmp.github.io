@@ -60,7 +60,7 @@
               <div class="stats">
                 <div class="stat">
                   <div class="stat__label">Записей</div>
-                  <div class="stat__value">{{ site.collections['guides'].docs | size }}</div>
+                  <div class="stat__value">{{ site.guides | size }}</div>
                 </div>
                 <div class="stat">
                   <div class="stat__label">Коллекция</div>
@@ -78,7 +78,6 @@
             <div class="feedbar">
               <div class="feedbar__left">
                 <h2 class="section-title">Записи</h2>
-                <div class="muted">start: {{ start_guide.url }}</div>
               </div>
 
               <div class="feedbar__right">
@@ -110,7 +109,7 @@
             </div>
 
             <div class="grid" id="guidesGrid">
-              {% assign items = site.collections['guides'].docs %}
+              {% assign items = site.guides %}
               {% for p in items %}
                 <a class="card"
                   href="{{ p.url | relative_url }}"
