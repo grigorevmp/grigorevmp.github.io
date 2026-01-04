@@ -41,7 +41,7 @@
 
                 <div class="hero__cta">
                   <a class="btn btn--primary" href="#feed">📚 Открыть ленту</a>
-                    {% assign start_guide = site.collections['guides'].docs | where: "start", true | first %}
+                    {% assign start_guide = site.guides | where: "start", true | first %}
                     {% if start_guide %}
                     <a class="btn btn--ghost" href="{{ start_guide.url | relative_url }}">⭐ Начать с базового</a>
                     {% else %}
