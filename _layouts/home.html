@@ -28,50 +28,59 @@
         </div>
 
         <article class="content" id="content">
-          <header class="hero hero--home">
-            <div class="hero__grid">
-              <div>
-                <h1 class="hero__title">{{ site.title }}</h1>
-                {% if page.subtitle %}
-                  <p class="hero__subtitle">{{ page.subtitle }}</p>
-                {% else %}
-                  <p class="hero__subtitle">{{ site.description }}</p>
-                {% endif %}
+        <header class="hero hero--home">
+          <div class="hero__grid hero__grid--refined">
 
-                <div class="hero__cta">
-                  <a class="btn btn--primary" href="#feed">📚 Открыть ленту</a>
-                    {% assign start_guide = site.guides | where: "start", true | first %}
-                    {% if start_guide %}
-                    <a class="btn btn--ghost" href="{{ start_guide.url | relative_url }}">⭐ Начать с базового</a>
-                    {% else %}
-                    <a class="btn btn--ghost" href="{{ '/#feed' | relative_url }}">⭐ Начать с базового</a>
-                    {% endif %}
-                </div>
+            <div class="hero__content">
+              <h1 class="hero__title">{{ site.title }}</h1>
 
+              {% if page.subtitle %}
+                <p class="hero__subtitle">{{ page.subtitle }}</p>
+              {% else %}
+                <p class="hero__subtitle">{{ site.description }}</p>
+              {% endif %}
+
+              <div class="hero__meta">
                 <div class="hero__badges">
                   <span class="badge">Kotlin</span>
                   <span class="badge badge--2">Android</span>
                   <span class="badge badge--3">JVM</span>
                   <span class="badge badge--4">CS</span>
                 </div>
-              </div>
 
-              <div class="stats">
-                <div class="stat">
-                  <div class="stat__label">Записей</div>
-                  <div class="stat__value">{{ site.guides | size }}</div>
-                </div>
-                <div class="stat">
-                  <div class="stat__label">Коллекция</div>
-                  <div class="stat__value">Guides</div>
-                </div>
-                <div class="stat">
-                  <div class="stat__label">Поиск</div>
-                  <div class="stat__value">Ctrl/⌘ + K</div>
+                <div class="hero__cta">
+                  <a class="btn btn--primary" href="#feed">📚 Открыть ленту</a>
+
+                  {% assign start_guide = site.guides | where: "start", true | first %}
+                  {% if start_guide %}
+                    <a class="btn btn--ghost" href="{{ start_guide.url | relative_url }}">⭐ Начать с базового</a>
+                  {% else %}
+                    <a class="btn btn--ghost" href="{{ '/#feed' | relative_url }}">⭐ Начать с базового</a>
+                  {% endif %}
                 </div>
               </div>
             </div>
-          </header>
+
+            <aside class="hero__stats">
+              <div class="stat stat--primary">
+                <div class="stat__label">Записей</div>
+                <div class="stat__value">{{ site.guides | size }}</div>
+              </div>
+
+              <div class="stat">
+                <div class="stat__label">Коллекция</div>
+                <div class="stat__value">Guides</div>
+              </div>
+
+              <div class="stat">
+                <div class="stat__label">Поиск</div>
+                <div class="stat__value">Ctrl / ⌘ + K</div>
+              </div>
+            </aside>
+
+          </div>
+        </header>
+
 
           <section class="paper paper--home" id="feed">
             <div class="feedbar">
