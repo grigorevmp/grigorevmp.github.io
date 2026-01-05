@@ -948,3 +948,16 @@ mark.__find{
 .hero__cta .btn {
   min-width: 180px;
 }
+
+.logo__icon{
+  width: 18px;
+  height: 18px;
+  display:block;
+  fill: rgba(255,255,255,.92);
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,.22));
+}
+
+:root[data-theme="light"] .logo__icon{
+  fill: rgba(0,0,0,.82);
+  filter: drop-shadow(0 10px 22px rgba(0,0,0,.12));
+}

@@ -1,7 +1,12 @@
 <header class="header">
   <div class="header__inner">
     <a class="logo" href="{{ '/' | relative_url }}">
-      <span class="logo__mark">⌁</span>
+      <span class="logo__mark" aria-hidden="true">
+        <svg class="logo__icon" viewBox="0 0 24 24" role="img" focusable="false">
+          <path d="M6 4h4v6l5-6h5l-7 8 7 8h-5l-5-6v6H6V4z" />
+        </svg>
+      </span>
+
       <span class="logo__text">{{ site.title }}</span>
     </a>
 
